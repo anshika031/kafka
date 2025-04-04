@@ -1,0 +1,55 @@
+1. kafka server- (RUN INSIDE FAKFA FOLDER)
+
+set PATH=%PATH%;C:\Windows\System32\wbem
+bin\windows\kafka-server-start.bat config\server.properties
+
+2. zookeeper- (RUN INSIDE KAFKA FOLDER)
+bin\windows\zookeeper-server-start.bat config\zookeeper.properties
+
+3. akhq- (Java 17 mandatory) (RUN INSIDE AKHQ FOLDER)
+a)
+Download the JAR : 
+wget https://github.com/tchiotludo/akhq/releases/download/v0.25.1/akhq-0.25.1-all.jar
+
+b)
+1. Create a yml file
+2. Run any one of the following commands: 
+ 
+java -jar akhq-0.25.1-all.jar server --config C:\akhq\application.yml  (it will run in 8080 port)
+java -Dmicronaut.config.files=application.yml -jar akhq-0.25.1-all.jar
+
+4. check whether all ports are running-
+for 9092: netstat -ano | findstr :9092
+for 8080: netstat -ano | findstr :8080
+
+5. list topics-
+bin\windows\kafka-topics.bat --bootstrap-server 10.10.1.83:9092 --list
+
+6.create topics-
+kafka-topics.bat --bootstrap-server localhost:9092 --create --topic user-topic --partitions 3 --replication-factor 1
+
+7. how many msgs are being sent to topic-
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic user-topic --from-beginning
+(The command kafka-console-consumer.bat --from-beginning reads messages directly from Kafka’s topic, not based on whether your Spring Boot consumer successfully processed them.)
+
+
+For Knowledge Purpose-
+Key Points:
+✔ Producers send messages to Kafka topics.
+✔ Kafka stores the messages (even if no consumer is available).
+✔ Consumers pull messages from topics at their own pace.
+✔ A failed consumer doesn’t affect message storage — Kafka keeps them until they expire or are deleted.
+
+NOTE :- The consumer received them but failed during processing , means?
+
+1- What Does "Consumer Received the Message" Mean?
+It means that Kafka successfully delivered the message to your consumer and the method annotated with @KafkaListener was triggered.
+The method started execution (confirmed because the method got hit) but processing failed at some point, so the method didn’t complete. 
+
+2- "Received" means the consumer got the message from Kafka and started processing.
+It does NOT mean the message was fully processed successfully.
+
+3- If processing fails , the message might:
+a: Be retried (if retries are configured).
+b: Go to a Dead Letter Queue (DLQ) (if configured).
+c: Stay unprocessed if offset commits are manual and not committed.

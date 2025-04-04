@@ -1,0 +1,25 @@
+# akhq:
+#   server:
+#     access-log: true
+#   connections:
+#     kafka-cluster:
+#       properties:
+#         bootstrap.servers: "127.0.0.1:9092"
+#   security: false
+#   connect:
+#         - name: jdbc-source-connector
+#           url: "io.aiven.connect.jdbc.JdbcSourceConnector"
+#           basic-auth-username: root
+#           basic-auth-password: root
+akhq:
+  connections:
+    local:
+      properties:
+        bootstrap.servers: "localhost:9092"
+      schema-registry:
+        url: "http://schema-registry:8085"
+      connect:
+        - name: jdbc-source-connector
+          url: "http://localhost:8083"
+        - name: elasticsearch-sink-connector
+          url: "http://localhost:8083"
