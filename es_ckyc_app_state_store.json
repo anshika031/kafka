@@ -1,0 +1,30 @@
+{
+  "name": "es_ckyc_app_state_store",
+  "config": {
+    "connector.class": "com.ibm.eventstreams.connect.elastics.ElasticsearchSinkConnector",
+    "tasks.max": "3",
+
+    "topics": "ckyc_app_state_store",
+    "key.ignore": "true",
+    "schema.ignore": "true",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false",
+
+    "connection.url": "http://10.56.21.32:9200",   
+
+    "flush.timeout.ms": "120000",
+    "max.retries": "10",
+    "read.timeout.ms": "20000",
+
+    "behavior.on.malformed.documents": "warn",
+    "errors.tolerance": "all",
+    "errors.log.enable": "true",
+    "errors.log.include.messages": "true",
+
+    "type.name": "_doc",
+    "auto.create.indices.at.start": "false"
+  }
+}
