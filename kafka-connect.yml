@@ -1,0 +1,10 @@
+startDelaySeconds: 0
+lowercaseOutputName: true
+lowercaseOutputLabelNames: true
+rules:
+  - pattern: 'kafka.connect<type=(.+), name=(.+)><>Value'
+    name: kafka_connect_$1_$2
+    type: GAUGE
+  - pattern: 'java.lang<type=(.+), name=(.+)><>Value'
+    name: java_lang_$1_$2
+    type: GAUGE
