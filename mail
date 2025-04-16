@@ -1,0 +1,27 @@
+Subject: JMX Metrics Endpoints for Kafka Monitoring
+
+Hi Team,
+As discussed, we have integrated the JMX Prometheus Exporter with our Kafka components. Please find below the list of exposed metrics endpoints for each node and service:
+
+- Kafka Broker:
+10.56.21.32:7071
+
+10.56.21.251:7072
+
+10.56.21.252:7073
+
+- Kafka Connect:
+10.56.21.32:7081
+
+10.56.21.251:7082
+
+10.56.21.252:7083
+
+- ZooKeeper:
+10.56.21.32:7091
+
+10.56.21.251:7092
+
+10.56.21.252:7093
+
+These endpoints are accessible and ready to be scraped by your Prometheus server. Let us know if you need sample scrape configs or help validating the connectivity.
