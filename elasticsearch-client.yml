@@ -1,0 +1,23 @@
+
+cluster.name: elastic
+node.name: nodel
+path.data: /opt_apb/elasticsearch
+path.logs: /var/log/elasticsearch
+path.repo: /tmp/snapshot
+network.host: 0.0.0.0
+discovery.seed_hosts: ["nodel", "node2", "node3"]
+cluster.initial_master_nodes: ["nodel", "node2", "node3"]
+xpack.security.enabled: true
+xpack.security.transport.ssl.enabled: true
+xpack.security.transport.ssl.verification_mode: "certificate"
+xpack.security.transport.ssl.certificate:
+"airtelbank/common-certs/common-certs.pem"
+xpack.security.transport.ssl.key: "airtelbank/common-certs/common-certs.key" xpack.security.transport.ssl.supported_protocols: "TLSv1.2"
+xpack.security.http.ssl.enabled: true
+xpack.security.http.ssl.key: "airtelbank/common-certs/common-certs.key" xpack.security.http.ssl.certificate:
+"airtelbank/common-certs/common-certs.pem"
+xpack.security.http.ssl.supported_protocols: "TLSv1.2"
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+http.host: 0.0.0.0
+transport.host: 0.0.0.0
